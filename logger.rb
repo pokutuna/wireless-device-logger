@@ -41,7 +41,7 @@ class HumanNetworkLogger
       $meta_logger.warn('blank bluetooth device name')
     end
     @bda = `hciconfig #{@config['bt_dev']} name}`.scan(/BD\sAddress:\s([\w:]*)/).flatten.first
-    @LOG_DIR = @LOGGER_DIR + '/logdata/' + @dev_name + '/' + @bda
+    @LOG_DIR = @LOGGER_DIR + '/logdata/' + @dev_name + '/' + @bda.delete(":")
 
     $meta_logger.debug('load virsion')
     version = YAML.load_file(@LOGGER_DIR+'/version.yaml')
@@ -62,7 +62,7 @@ class HumanNetworkLogger
       puts_log(@bda_file, "[LOGGER_VERSION]#{@version}")
       puts_log(@bda_file, "[LOGGER_BDA]#{@bda}")
     end
-    
+
     if @config['wifi_scan'] then
       @wifi_file = File.open(dir+'/wifi'+@today+'.tsv','a')
       puts_log(@wifi_file, "[LOGGER_VERSION]#{@version}")
@@ -174,4 +174,3 @@ rescue => e
   $meta_logger.fatal(e.message)
   $meta_logger.fatal(e.backtrace.join("\n"))
 end
-  
