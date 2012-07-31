@@ -5,6 +5,7 @@ files = FileList.new do |f|
   f.include "*.rb"
   f.include "version.yaml"
   f.include 'update.sh'
+  f.include 'wifi_trigger.sh'
   f.include "setup/**/*"
   f.exclude "**/*key"
   f.exclude "latest_logger"

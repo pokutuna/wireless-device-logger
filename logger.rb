@@ -78,7 +78,7 @@ class HumanNetworkLogger
       file.puts '--- end ---'
     }
   end
-  
+
   def bluetooth_scan
     now = Time.now.strftime('%Y/%m/%d %X')
     info = '[BT_SCAN]' + now
@@ -113,6 +113,7 @@ class HumanNetworkLogger
   def puts_log(file, msg)
     puts msg
     file.puts msg
+    file.flush
   end
 
   def puts_alert(type=nil)
@@ -138,7 +139,7 @@ class HumanNetworkLogger
     loop do
       if @config['bt_scan'] then
         btdata = bluetooth_scan
-        if $? == 0 then 
+        if $? == 0 then
           puts_log(@bda_file, btdata['info'])
           puts_log(@bda_file, btdata['log'])
         else
